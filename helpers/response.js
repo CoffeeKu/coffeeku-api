@@ -1,9 +1,8 @@
-const responseSuccess = (data = {}, message = 'internal server error', code = 500, meta = {}) => {
+const responseSuccess = (data = {}, message = 'internal server error', code = 500) => {
   return {
     code,
     message,
-    data,
-    meta
+    data
   }
 }
 
@@ -16,8 +15,8 @@ const responseError = (errors = {}, message = 'internal server error', code = 50
 }
 
 module.exports = {
-  success: (data = {}, message = 'OK', code = 200, meta = {}) => {
-    return responseSuccess(data, message, code, meta)
+  success: (data = {}, message = 'OK', code = 200) => {
+    return responseSuccess(data, message, code)
   },
 
   error: ({errors, message, code}) => {

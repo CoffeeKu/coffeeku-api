@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const router = require("express").Router()
-const errorHandler = require("../helpers/errorHandler")
+const errorHandler = require("../middleware/errorHandler")
 
 router.get("/ping", (req, res) => {
   res.send("ping!")

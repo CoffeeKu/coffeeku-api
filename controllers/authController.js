@@ -19,7 +19,7 @@ class AuthController extends BaseController{
       if (!user) {
         throw ({
           name: "NOT_FOUND",
-          message: "Email not found",
+          errors: "Email not found",
         });
       }
 
@@ -28,7 +28,7 @@ class AuthController extends BaseController{
       if (!validPassword) {
         throw ({
           name: "BAD_REQUEST",
-          message: "Invalid Password",
+          errors: "Invalid Password",
         });
       }
 
@@ -56,7 +56,7 @@ class AuthController extends BaseController{
       if (!findRole) {
         throw ({
           name: "NOT_FOUND",
-          message: "Role not found",
+          errors: "Role not found",
         });
       }
 

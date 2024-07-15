@@ -1,4 +1,4 @@
-const responseHelper = require('./response');
+const responseHelper = require('../helpers/response');
 
 module.exports = (err, req, res, next) => {
   let error = {
@@ -12,7 +12,7 @@ module.exports = (err, req, res, next) => {
       error = {
         code: 404,
         message: "NOT_FOUND",
-        errors: {},
+        errors: err.errors || {},
       };
       break;
     case "BAD_REQUEST":
@@ -40,5 +40,6 @@ module.exports = (err, req, res, next) => {
   }
 
   const response = responseHelper.error(error);
+
   res.status(response.code).json(response);
 };

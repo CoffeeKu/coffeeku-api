@@ -20,6 +20,6 @@ app.use(express.json());
 
 // Apply the rate limiting middleware to all requests
 app.use(limiter)
-app.use("/", routes);
+app.use("/api/v1", routes);
 
 module.exports = app

@@ -1,4 +1,4 @@
-const errorHandler = require('../helpers/errorHandler')
+const errorHandler = require('./errorHandler')
 const verify = require('../helpers/jwt').verify
 
 const getBearerToken = (headers) => {
