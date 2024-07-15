@@ -1,0 +1,31 @@
+{
+  "name": "boilerplate-node",
+  "version": "0.1.0",
+  "description": "This is an boilerplate for fullstack nodejs project. A template for starting project with MVC pattern and some package like express, sequelize, ejs, etc.",
+  "main": "app.js",
+  "scripts": {
+    "test": "NODE_ENV=test jest --verbose --runInBand --forceExit",
+    "dev": "npx nodemon bin/www"
+  },
+  "keywords": [],
+  "author": "tedante",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^2.0.22",
+    "sequelize-cli": "^6.6.1",
+    "supertest": "^6.3.3"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.11.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.2",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.32.1",
+    "uuid": "^9.0.0"
+  }
+}

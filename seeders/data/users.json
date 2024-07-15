@@ -1,0 +1,29 @@
+[
+  {
+    "id": "91273648-4574-4599-b662-9d71c3adc86a",
+    "name": "admin",
+    "email": "admin@yoypmail.com",
+    "password": "$2a$12$OOHTDuSuwaNaJe9q9LKSI.nOibBZPECXmQJYKPJT8TTuBRTYku51K",
+    "email_verified_at": "2023-12-02T08:23:19.731Z",
+    "is_active": true,
+    "RoleId": "550b3cc1-0551-420f-872d-91f0181201b6"
+  },
+  {
+    "id": "2884b5d5-cca5-403c-911d-fdb77198957f",
+    "name": "test",
+    "email": "test@yopmail.com",
+    "password": "$2a$12$OOHTDuSuwaNaJe9q9LKSI.nOibBZPECXmQJYKPJT8TTuBRTYku51K",
+    "email_verified_at": "2023-12-02T08:23:19.731Z",
+    "is_active": true,
+    "RoleId": "0209cbd3-2069-44a7-92a2-20af22dfe8ff"
+  },
+  {
+    "id": "e3fc7170-0ff1-4b10-b261-30e05f491a87",
+    "name": "user",
+    "email": "user@yopmail.com",
+    "password": "$2a$12$OOHTDuSuwaNaJe9q9LKSI.nOibBZPECXmQJYKPJT8TTuBRTYku51K",
+    "email_verified_at": "2023-12-02T08:23:19.731Z",
+    "is_active": true,
+    "RoleId": "0209cbd3-2069-44a7-92a2-20af22dfe8ff"
+  }
+]

@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Role",
+    "attributes": {
+      "name": "string",
+      "description": "string"
+    }
+  },
+  {
+    "name": "User",
+    "attributes": {
+      "name": "string",
+      "email": "string",
+      "password": "string",
+      "email_verified_at": "date",
+      "is_active": "boolean"
+    }
+  }
+]
