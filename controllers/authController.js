@@ -14,6 +14,7 @@ class AuthController extends BaseController{
         where: {
           email,
         },
+        include: Role,
       });
 
       if (!user) {
@@ -33,7 +34,9 @@ class AuthController extends BaseController{
       }
 
       const response = responseHelper.success({
+        name: user.name,
         email: user.email,
+        role: user.Role.name,
         token: user.generateToken()
       }, 'User logged in successfully', 200)
 
