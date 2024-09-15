@@ -92,7 +92,6 @@ class AuthController extends BaseController{
         token
       }, 'User registered successfully', 201)
 
-      
       return res.status(response.code).json(response);
     } catch (error) {
       next(error);
