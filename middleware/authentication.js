@@ -29,7 +29,7 @@ module.exports = {
       req.user = decoded
       next()
     } catch (error) {
-      errorHandler({
+      return errorHandler({
         name: 'NOT_AUTHORIZED',
         errors: error.errors || {
           token: error.message
@@ -43,7 +43,7 @@ module.exports = {
       req.token = token
       next()
     } else {
-      errorHandler({
+      return errorHandler({
         name: 'FORBIDDEN',
       }, req, res, next)
     }

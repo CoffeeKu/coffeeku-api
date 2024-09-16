@@ -5,12 +5,12 @@ module.exports = {
     await queryInterface.createTable('Menus', {
       id: {
         allowNull: false,
-        autoIncrement: true,
+        defaultValue: Sequelize.literal('gen_random_uuid()'),
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID
       },
       CategoryId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: {
           model: 'Categories',
           key: 'id'
