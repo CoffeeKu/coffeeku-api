@@ -11,25 +11,29 @@ class AuthController extends BaseController{
     try {
       const { email, password } = req.body;
       const user = await this.model.findOne({
+        attributes: ["name", "email", "password"],
         where: {
           email,
         },
-        include: Role,
+        include: {
+          model: Role,
+          attributes: ["name"],
+        },
       });
 
       if (!user) {
         throw ({
-          name: "NOT_FOUND",
-          errors: "Email not found",
+          name: "BAD_REQUEST",
+          errors: "Please check your email and password",
         });
       }
 
-      const validPassword = await user.validPassword(password);
+      const validPassword = await user.validPassword(password, user.password);
 
       if (!validPassword) {
         throw ({
           name: "BAD_REQUEST",
-          errors: "Invalid Password",
+          errors: "Please check your email and password",
         });
       }
 
@@ -42,6 +46,8 @@ class AuthController extends BaseController{
 
       return res.status(response.code).json(response);
     } catch (error) {
+      console.log(error);
+      
       next(error);
     }
   }

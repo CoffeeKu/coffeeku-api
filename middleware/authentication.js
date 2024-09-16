@@ -26,6 +26,8 @@ module.exports = {
 
       const decoded = verify(token);
 
+      console.log(decoded);
+      
       req.user = decoded
       next()
     } catch (error) {

@@ -19,13 +19,14 @@ module.exports = (sequelize, DataTypes) => {
       })
     }
 
-    validPassword(password) {
-      return compare(password, this.password);
+    validPassword(password, hashedPassword) {
+      return compare(password, hashedPassword);
     }
 
     generateToken() {
       return generateJWT({
         id: this.id,
+        role: this.Role.name,
         email: this.email,
       });
     }

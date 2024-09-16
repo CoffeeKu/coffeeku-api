@@ -2,7 +2,7 @@
   {
     "id": "91273648-4574-4599-b662-9d71c3adc86a",
     "name": "admin",
-    "email": "admin@yoypmail.com",
+    "email": "admin@yopmail.com",
     "password": "$2a$12$OOHTDuSuwaNaJe9q9LKSI.nOibBZPECXmQJYKPJT8TTuBRTYku51K",
     "email_verified_at": "2023-12-02T08:23:19.731Z",
     "is_active": true,
