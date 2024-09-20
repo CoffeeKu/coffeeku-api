@@ -1,6 +1,7 @@
 const { User, Role } = require("../models/index");
 const BaseController = require("./baseController");
 const responseHelper = require('../helpers/response');
+const { generateJWT } = require("../helpers/jwt");
 
 class AuthController extends BaseController{
   constructor(){
@@ -84,14 +85,27 @@ class AuthController extends BaseController{
         });
       }
 
-      const user = await this.model.create({
+      let user = await this.model.create({
         name,
         email,
         password,
         RoleId: findRole.id
       });
+     
+      user = await this.model.findOne({
+        attributes: ["id", "email", "Role.name"],
+        where: {
+          id: user.id,
+        },
+        include: {
+          model: Role,
+          attributes: ["name"],
+        },
+      });
+
+      console.log(user, ">>>>>");
       
-      const token = user.generateToken();
+      const token = generateJWT(user);
 
       const response = responseHelper.success({
         email: user.email,
@@ -100,6 +114,8 @@ class AuthController extends BaseController{
 
       return res.status(response.code).json(response);
     } catch (error) {
+      console.log(error);
+      
       next(error);
     }
   }

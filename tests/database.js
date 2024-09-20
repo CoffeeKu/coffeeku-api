@@ -14,7 +14,7 @@ const formatDataSeeder = (path) => {
 
 module.exports = {
   getAdmin: () => {
-    return require('../seeders/data/users.json').find(item => item.email === 'admin@yoypmail.com')
+    return require('../seeders/data/users.json').find(item => item.email === 'admin@yopmail.com')
   },
   sync: async () => {
     await sequelize.sync({ force: true })

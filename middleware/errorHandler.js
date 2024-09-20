@@ -1,4 +1,18 @@
 const responseHelper = require('../helpers/response');
+const winston = require('winston');
+const path = require('path');
+
+// Create a Winston logger instance
+const logger = winston.createLogger({
+  level: 'error',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
+  transports: [
+    new winston.transports.File({ filename: path.join(__dirname, '../storage/logs/error.log') })
+  ],
+});
 
 module.exports = (err, req, res, next) => {
   let error = {
@@ -38,6 +52,14 @@ module.exports = (err, req, res, next) => {
       break;
     default:
   }
+
+  // Log the error using Winston
+  logger.error({
+    message: error.message,
+    code: error.code,
+    errors: error.errors,
+    stack: err.stack,
+  });
 
   const response = responseHelper.error(error);
 

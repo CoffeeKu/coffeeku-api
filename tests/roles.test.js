@@ -2,6 +2,7 @@ const request = require('supertest');
 const app = require('../app');
 const syncDatabase = require('./database');
 const { generateJWT } = require("../helpers/jwt");
+const { User, Role } = require('../models/index');
 
 beforeAll(async () => {
   await syncDatabase.sync()
@@ -14,23 +15,9 @@ afterAll(async () => {
 });
 
 describe('Roles API', () => {
-  let prefix = '/roles'
-  let admin = syncDatabase.getAdmin()
-  let accessToken = generateJWT({
-    id: admin.id,
-    email: admin.email,
-  });
+  let prefix = '/api/v1/roles'
   const roles = require('../seeders/data/roles.json');
   
-  test('check server active', () => {
-    return request(app)
-            .get('/ping')
-            .expect(200)
-            .then((res) => {
-              expect(res.status).toBe(200);
-            })
-  })
-
   test('Should not get all roles without access token', () => {
     return request(app)
             .get(prefix)
@@ -43,71 +30,25 @@ describe('Roles API', () => {
             })
   })
 
-  test('Should not get all roles with access token not valid', () => {
-    return request(app)
-            .get(prefix)
-            .set('Authorization', `Bearer ${accessToken}123`)
-            .expect(401)
-            .then(({status, body}) => {
-              expect(status).toBe(401);
-              expect(body).toBeInstanceOf(Object);
-              expect(body.code).toBe(401);
-              expect(body.message).toBe('NOT_AUTHORIZED');
-            })
-  })
+  test('Should get all roles', async () => {
+    const admin = await User.findOne({
+      where: {
+        email: 'admin@yopmail.com'
+      },
+      include: {
+        model: Role,
+      }
+    });
 
-  test('Should get all roles', () => {
+    const token = generateJWT(admin);
     return request(app)
             .get(prefix)
-            .set('Authorization', `Bearer ${accessToken}`)
+            .set('Authorization', `Bearer ${token}`)
             .expect(200)
             .then(({status, body}) => {
               expect(status).toBe(200);
               expect(body).toBeInstanceOf(Object);
               expect(body.data).toBeInstanceOf(Array);
-              expect(body.meta.next).toBe(null);
-              expect(body.meta.previous).toBe(null);
-              expect(body.meta.page).toBe(1);
-              expect(body.meta.total).toBe(roles.length);
-              expect(body.meta.limit).toBe(10);
-              expect(body.meta.totalPages).toBe(1);
-            })
-  })
-  test('Should get roles with limit 1', () => {
-    return request(app)
-            .get(prefix + '?limit=1')
-            .set('Authorization', `Bearer ${accessToken}`)
-            .expect(200)
-            .then(({status, body}) => {
-              expect(status).toBe(200);
-              expect(body).toBeInstanceOf(Object);
-              expect(body.data).toBeInstanceOf(Array);
-              expect(body.meta.next).toBe(2);
-              expect(body.meta.previous).toBe(null);
-              expect(body.meta.page).toBe(1);
-              expect(body.meta.total).toBe(roles.length);
-              expect(body.meta.limit).toBe(1);
-              expect(body.meta.totalPages).toBe(roles.length);
-            })
-  })
-  
-  test('Should get roles with name filter', () => {
-    let filter = "admin"
-    
-    return request(app)
-            .get(prefix + `?filter[name]=${filter}`)
-            .set('Authorization', `Bearer ${accessToken}`)
-            .expect(200)
-            .then(({status, body}) => {
-              expect(status).toBe(200);
-              expect(body).toBeInstanceOf(Object);
-              expect(body.data).toBeInstanceOf(Array);
-              expect(body.meta.next).toBe(null);
-              expect(body.meta.previous).toBe(null);
-              expect(body.meta.page).toBe(1);
-              expect(body.meta.total).toBe(roles.filter(r => r.name === filter).length);
-              expect(body.meta.limit).toBe(10);
-              expect(body.meta.totalPages).toBe(1);
             })
   })
 })

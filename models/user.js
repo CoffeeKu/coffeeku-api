@@ -22,15 +22,6 @@ module.exports = (sequelize, DataTypes) => {
     validPassword(password, hashedPassword) {
       return compare(password, hashedPassword);
     }
-
-    generateToken() {
-      return generateJWT({
-        id: this.id,
-        role: this.Role.name,
-        email: this.email,
-      });
-    }
-
   }
   User.init({
     id: {

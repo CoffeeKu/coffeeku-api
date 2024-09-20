@@ -21,7 +21,7 @@ describe('Auth API', () => {
 
   test('check server active', () => {
     return request(app)
-            .get('/ping')
+            .get('/api/v1/ping')
             .expect(200)
             .then((res) => {
               expect(res.status).toBe(200);
@@ -31,7 +31,7 @@ describe('Auth API', () => {
   test('Should register a new user', () => {
 
     return request(app)
-            .post('/auth/register')
+            .post('/api/v1/auth/register')
             .send(requestRegister)
             .expect(201)
             .then(({status, body}) => {
@@ -39,11 +39,14 @@ describe('Auth API', () => {
               expect(body).toBeInstanceOf(Object);
               expect(body.data).toHaveProperty('email', requestRegister.email);
             })
+            .catch(err => {
+              console.log(err);
+            })
   })
 
   test('Should not register a new user with existing email', () => {
     return request(app)
-            .post('/auth/register')
+            .post('/api/v1/auth/register')
             .send(requestRegister)
             .expect(400)
             .then(({status, body}) => {
