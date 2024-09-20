@@ -10,5 +10,15 @@ module.exports = {
         errors: 'You are not authorized to access this resource'
       }, req, res, next)
     }
+  },
+  isNormalUser: (req, res, next) => {
+    if (req.user.role === 'user') {
+      next()
+    } else {
+      return errorHandler({
+        name: 'FORBIDDEN',
+        errors: 'You are not authorized to access this resource'
+      }, req, res, next)
+    }
   }
 }
